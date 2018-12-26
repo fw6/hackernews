@@ -1,0 +1,86 @@
+.normal {
+}
+
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background-color: #f60;
+  z-index: 999;
+}
+
+.inner {
+  max-width: 800px;
+  box-sizing: border-box;
+  margin: 0 auto;
+  padding: 15px 5px;
+
+  a {
+    display: inline-block;
+    margin-right: 1.8em;
+    vertical-align: middle;
+    line-height: 24px;
+    font-weight: 300;
+    letter-spacing: 0.075em;
+    color: rgba(255, 255, 255, 0.8);
+    transition: color 0.15s ease;
+    &:hover {
+      color: #ffffff;
+    }
+    &:active {
+      color: #ffffff;
+      font-weight: 400;
+    }
+    &:nth-child(6) {
+      margin-right: 0;
+    }
+  }
+
+  .github {
+    float: right;
+    margin: 0;
+    color: #ffffff;
+    font-size: 0.9em;
+    cursor: default;
+    a {
+      margin: 0;
+    }
+  }
+}
+
+.logo {
+  display: inline-block;
+  width: 24px;
+  margin-right: 10px;
+  vertical-align: middle;
+}
+
+.view {
+  max-width: 800px;
+  margin: 0 auto;
+  position: relative;
+}
+
+@media (max-width: 860px) {
+  .header .inner {
+    padding: 15px 30px;
+  }
+}
+
+@media (max-width: 600px) {
+  body {
+    font-size: 14px;
+  }
+  .header {
+    .inner {
+      padding: 15px;
+    }
+    a {
+      margin-right: 1em;
+    }
+    .github {
+      display: none;
+    }
+  }
+}
