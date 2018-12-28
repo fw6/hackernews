@@ -1,32 +1,43 @@
-import Firebase from 'firebase'
+import api from '../utils/firebase'
 
-// TODO
+const logRequests = !!process.env.DEBUG_API
 
-// Firebase.initializeApp({
-//   databaseURL: 'https://hacker-news.firebaseio.com/v0'
-// })
-const api = new Firebase()
+if (api.onServer) {
+  warmCache()
+}
+function warmCache() {
+  fetchItems((api.cachedIds.top || []).slice(0, 30))
+  setTimeout(warmCache, 1000 * 60 * 15)
+}
 
-const fetch = child =>
-  new Promise((resolve, reject) => {
-    api.child(child).once(
-      'value',
-      snapshot => {
-        const val = snapshot.val()
-        if (val) {
+function fetch(child) {
+  logRequests && console.log(`fetching ${child}...`)
+  const cache = api.cachedItems
+  if (cache && cache.has(child)) {
+    logRequests && console.log(`cache hit for ${child}.`)
+    return Promise.resolve(cache.get(child))
+  } else {
+    return new Promise((resolve, reject) => {
+      api.child(child).once(
+        'value',
+        snapshot => {
+          const val = snapshot.val()
+          // mark the timestamp when this item is cached
+          if (val) val.__lastUpdated = Date.now()
+          cache && cache.set(child, val)
+          logRequests && console.log(`fetched ${child}.`)
           resolve(val)
-        } else {
-          setTimeout(() => {
-            fetch(child).then(val => resolve(val))
-          }, 500)
-        }
-      },
-      reject
-    )
-  })
+        },
+        reject
+      )
+    })
+  }
+}
 
 export function fetchIdsByType(type) {
-  return fetch(`${type}stories`)
+  return api.cachedIds && api.cachedIds[type]
+    ? Promise.resolve(api.cachedIds[type])
+    : fetch(`${type}stories`)
 }
 
 export function fetchItem(id) {
@@ -34,7 +45,7 @@ export function fetchItem(id) {
 }
 
 export function fetchItems(ids) {
-  return Promise.all(ids.map(id => fetch(id)))
+  return Promise.all(ids.map(id => fetchItem(id)))
 }
 
 export function fetchUser(id) {
@@ -51,9 +62,7 @@ export function watchList(type, cb) {
       cb(snapshot.val())
     }
   }
-
   ref.on('value', handler)
-
   return () => {
     ref.off('value', handler)
   }

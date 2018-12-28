@@ -1,5 +1,5 @@
 import { connect } from 'dva'
-import styles from './styles'
+import styles from './styles.less'
 import userSelector from '../../selectors/user'
 import Spinner from '../Spinner'
 import { timeAgo } from '../../utils/filters'

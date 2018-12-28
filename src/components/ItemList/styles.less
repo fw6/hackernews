@@ -1,4 +1,4 @@
-.nav {
+.pagination {
   position: fixed;
   top: 55px;
   left: 0;
@@ -13,7 +13,7 @@
   a {
     margin: 0 1em;
   }
-  .disable {
+  .disabled {
     color: #cccccc;
   }
 }
@@ -47,12 +47,13 @@
   .item-leave.item-leave-active,
   .item-enter {
     opacity: 0.01;
-    transition: translate(30px, 0);
+    transform: translate(30px, 0);
   }
 
   .item-leave,
   .item-enter.item-enter-active {
     opacity: 1;
+    transform: translate(0, 0);
     transition: all 0.5s cubic-bezier(0.55, 0, 0.1, 1);
   }
 }

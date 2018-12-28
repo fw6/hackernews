@@ -51,7 +51,7 @@ class Comment extends Component {
 
         <div className={styles.commentChildren}>
           {comment.kids && open
-            ? comment.kid.map(id => (
+            ? comment.kids.map(id => (
                 <Comment key={id} id={id} itemsById={itemsById} />
               ))
             : null}

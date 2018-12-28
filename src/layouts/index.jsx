@@ -2,8 +2,8 @@ import NavLink from 'umi/navlink'
 import styles from './styles.less'
 
 const Layout = props => (
-  <div className={styles.noraml}>
-    <div className={styles.header}>
+  <>
+    <header className={styles.header}>
       <div className={styles.inner}>
         <NavLink to="/">
           <img
@@ -48,9 +48,9 @@ const Layout = props => (
           </a>
         </span>
       </div>
-    </div>
-    <div className={styles.view}>{props.children}</div>
-  </div>
+    </header>
+    <main className={styles.view}>{props.children}</main>
+  </>
 )
 
 export default Layout

@@ -3,13 +3,15 @@
 
 .spinner {
   position: fixed;
-  right: 15px;
-  bottom: 15px;
+  top: 40%;
+  left: 50%;
   opacity: 0;
   transition: opacity 0.15s ease;
   animation: rotator @duration linear infinite;
   animation-play-state: paused;
   z-index: 999;
+  transform: translateX(-50%);
+  transform-origin: center;
 }
 
 .show {

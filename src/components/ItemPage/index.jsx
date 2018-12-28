@@ -1,6 +1,6 @@
 import { Link } from 'dva/router'
 import { connect } from 'dva'
-import styles from './styles'
+import styles from './styles.less'
 import { itemSelector } from '../../selectors/item'
 import Spinner from '../Spinner'
 import { host, timeAgo } from '../../utils/filters'

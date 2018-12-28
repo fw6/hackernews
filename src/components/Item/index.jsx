@@ -6,22 +6,22 @@ const Item = ({ item }) => {
   const { score, title, url, type, id, by, descendants, time } = item
 
   return (
-    <>
+    <li className={styles.normal}>
       <span className={styles.score}>{score}</span>
-      <span className={styles.title}>
+      <p className={styles.title}>
         {url ? (
-          <span>
+          <>
             <a href={url} rel="noopener noreferrer" target="_blank">
               {title}
             </a>
-            <span className={styles.host}>({host(url)})</span>
-          </span>
+            <span className={styles.host}>( {host(url)} )</span>
+          </>
         ) : (
           <Link to={`/item/${id}`}>{title}</Link>
         )}
-      </span>
-      <br />
-      <span className={styles.meta}>
+      </p>
+
+      <p className={styles.meta}>
         {type !== 'job' ? (
           <span className={styles.by}>
             by <Link to={`/user/${by}`}>{by}</Link>
@@ -34,9 +34,9 @@ const Item = ({ item }) => {
             <Link to={`/item/${id}`}>{descendants} comments</Link>
           </span>
         ) : null}
-      </span>
+      </p>
       {type !== 'story' ? <span className={styles.label}>{type}</span> : null}
-    </>
+    </li>
   )
 }
 

@@ -10,7 +10,6 @@ export function listSelector(state, ownProps) {
     return memo
   }, [])
   const maxPage = Math.ceil(lists[activeType].length / itemsPerPage)
-
   return {
     items,
     page,

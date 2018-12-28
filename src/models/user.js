@@ -8,9 +8,9 @@ export default {
   },
 
   subscriptions: {
-    setup(dispatch, history) {
+    setup({ dispatch, history }) {
       history.listen(({ pathname }) => {
-        const match = pathToRegexp('/user/:userId').exac(pathname)
+        const match = pathToRegexp('/user/:userId').exec(pathname)
         if (match) {
           const userId = match[1]
           dispatch({ type: 'fetchUser', payload: userId })
